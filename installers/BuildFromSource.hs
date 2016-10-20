@@ -63,6 +63,14 @@ configs :: Map.Map String Config
 configs =
   Map.fromList $ map (\config -> (elmVersion config, config)) $
     [
+      Config "nri-master" [7,10] $
+        [ "elm-compiler" =: "nri-master"
+        , "elm-package"  =: "nri-master"
+        , "elm-make"     =: "nri-master"
+        , "elm-reactor"  =: "nri-master"
+        , "elm-repl"     =: "nri-master"
+        ]
+    ,
       Config "master" [7,10] $
         [ "elm-compiler" =: "master"
         , "elm-package"  =: "master"
@@ -147,7 +155,7 @@ main :: IO ()
 main =
   do  args <- getArgs
       case args of
-        [version] ->
+        [version] : ->
           case Map.lookup version configs of
             Nothing ->
               failure $
@@ -205,7 +213,7 @@ makeRepos artifactDirectory version repos =
 makeRepo :: FilePath -> String -> String -> IO ()
 makeRepo root projectName version =
   do  -- get the right version of the repo
-      git [ "clone", "https://github.com/elm-lang/" ++ projectName ++ ".git" ]
+      git [ "clone", "https://github.com/NoRedInk/" ++ projectName ++ ".git" ]
       setCurrentDirectory projectName
       git [ "checkout", version, "--quiet" ]
 
