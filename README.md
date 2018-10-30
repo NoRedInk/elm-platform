@@ -1,4 +1,4 @@
-# Elm Platform
+# Elm Platform [Deprecated]
 
 A bundle of all [Elm](http://elm-lang.org) tools, usable through the `elm` executable.
 
